@@ -1,3 +1,5 @@
+
+   
 INSERT into PATIENT
 values('01101234', 'Smith', 'John', '364 Youngswood drive', '614-876-8893', 
 'n/a', '10/3/2006', '8/18/2015', '1500');
@@ -95,7 +97,7 @@ values('76586', 'root canal');
 
 
 INSERT into PAT_ALLERGIES
-values(01101234, 'pollen');
+values('01101234', 'pollen');
 
 INSERT into PAT_ALLERGIES
 values('01101234', 'eggs');
@@ -206,25 +208,25 @@ INSERT into CREDIT_CARD
 values('6494508386724407', '356', '07/2024');
 
 INSERT into CHEQUE
-values(02, 041215032);
+values(02, 049215032);
 
 INSERT into CHEQUE
-values(03, 044115090);
+values(03, 084115090);
 
 INSERT into CHEQUE
-values(04, 041215016);
+values(04, 941215016);
 
 INSERT into CHEQUE
-values(05, 041215032);
+values(05, 841215032);
 
 INSERT into CHEQUE
 values(06, 044000024);
 
 INSERT into CHEQUE
-values(07, 044000024);
+values(07, 644000024);
 
 INSERT into CHEQUE
-values(08, 044115090);
+values(08, 544115090);
 
 INSERT into CHEQUE
 values(09, 044115090);
@@ -233,7 +235,7 @@ INSERT into CHEQUE
 values(10, 041215032);
 
 INSERT into CHEQUE
-values(10, 044000024);
+values(11, 344000024);
 
 INSERT into DEBIT
 values(4506644499004857, 428, 044115090);
