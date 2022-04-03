@@ -1,0 +1,23 @@
+INSERT into PATIENT
+values('01101234', 'Smith', 'John', '364 Youngswood drive', '614-876-8893', 'n/a', '10/3/2006', '8/18/2015', '1500');
+
+INSERT into PAT_PHONE
+values('01101234', '541-617-8988');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('01101234', 'cranial surgery');
+
+INSERT into PAT_ALLERGIES
+values('01101234', 'pollen');
+
+INSERT into FACULTY
+values('06687489', 'Troy', 'Paul', '8-5', '123000', 'Doctor', '4/23/1990', 'male');
+
+INSERT into PAYMENT
+values('91283438', '01101234', 'credit', '595');
+
+INSERT into CREDIT_CARD
+values('1874182470349126', '875', '06/2019');
+
+INSERT into APPOINTMENT
+values('0612', '04/04/2022', 'Paul Troy', '678', '06687489', '01101234')
