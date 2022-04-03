@@ -1,0 +1,144 @@
+SELECT * FROM demo;
+
+CREATE TABLE PATIENT (
+    patientId int,
+    lname varchar,
+    fname varchar,
+  	address varchar,
+  	phone varchar,
+  	medicalHistory varchar,
+  	HIPAALastSigned varchar,
+  	xRayDate varchar,
+  	payedLastYear int
+);
+CREATE TABLE PAT_PHONE (
+     pId int,
+    phone varchar
+);
+
+CREATE TABLE PAT_MEDICAL_HISTORY (
+     pId int,
+    procedure varchar
+);
+
+CREATE TABLE PAT_ALLERGIES (
+     pId int,
+    allergen varchar
+);
+
+
+CREATE TABLE OFFICE (
+     officeId int,
+    address varchar
+);
+
+CREATE TABLE FACULTY (
+     facultyId int,
+    lname varchar,
+    fname varchar,
+  	workHours varchar,
+  	salary int,
+  	role varchar,
+  	bday varchar,
+  	sex varchar
+);
+
+CREATE TABLE PAYMENT (
+     paymentId int,
+    patientId int,
+    pType varchar,
+  	amount int
+);
+
+CREATE TABLE CREDIT_CARD (
+     cardNum varchar,
+    CVV varchar,
+    expiration varchar
+);
+
+CREATE TABLE CHEQUE (
+    accountNo varchar,
+    routingNo varchar
+);
+
+CREATE TABLE DEBIT (
+     cardNum varchar,
+    accountNo varchar,
+    routingNo varchar
+);
+
+CREATE TABLE APPOINTMENT (
+     appointmentId int,
+    dateOf varchar,
+    medicalProfessional varchar,
+  	totalCost int,
+  	faculty varchar,
+  	patientId INT
+);
+
+CREATE TABLE INSURANCE (
+     memberId int,
+    groupNum int,
+    insuredId int,
+  	holderName varchar,
+  	phoneNumber varchar,
+  	company varchar,
+  	policy varchar
+);
+
+CREATE TABLE MEDICATION (
+     medicationId int,
+    patientId int,
+    dose varchar,
+  	name varchar
+);
+
+CREATE TABLE APPOINTMENT_PAYMENT (
+     paymentId int,
+    appointmentId int,
+    amount int,
+  	dateOf varchar
+);
+CREATE TABLE SERVICE (
+     serviceId int,
+  	patientId int,
+    amountDue int,
+    dateDue varchar,
+  	daysLate int
+);
+
+CREATE TABLE APPOINTMENT_SERVICE (
+     serviceId int,
+    appointmentId int
+);
+
+CREATE TABLE SERVICE_PROCEDURES (
+     serviceId int,
+    appointmentId int
+);
+
+CREATE TABLE LICENSURE (
+     facultyId int,
+    expiryDate varchar,
+    type varchar
+);
+
+CREATE TABLE SUPPLY_SELLER (
+     number int,
+    location varchar,
+    name varchar
+);
+
+CREATE TABLE SUPPLY_PURCHASE (
+     ownerName varchar,
+    supplierNumber int,
+    purchasePrice int,
+  	dateOf varchar,
+  	quantity int
+);
+CREATE TABLE PROCEDURE (
+     type varchar,
+    dateOf varchar,
+    professionalName varchar,
+  	cost int
+);
