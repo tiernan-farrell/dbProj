@@ -309,7 +309,7 @@ INSERT into APPOINTMENT_PAYMENT
 values('10003', '0615', '275', '04/08/2022');
 
 INSERT into SERVICE
-values('9000', '1231231', '678', '04/04/2022', '1')
+values('9000', '1231231', '678', '04/04/2022', '1');
 
 INSERT into SERVICE
 values('9001', '124111', '242', '04/04/2022', '0');
