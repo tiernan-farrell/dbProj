@@ -1,0 +1,28 @@
+SELECT P.fname, P.lname, M.name, M.dose
+FROM Patient P, Medication MEDICATION
+WHERE P.patientId = M.patientId
+ORDER BY P.lname, M.name;
+
+
+SELECT P.fname, P.lname, P.patientId
+P.address, P.phone, P.medicalHistory, P.HIPAALastSigned,
+P.xRayDate, P.payedLastYear
+FROM Patient P, Medication MEDICATION
+WHERE P.patientId = M.patientId
+AND M.name = "Delta Dental"
+
+SELECT P.type, P.dateOf
+FROM PROCEDURE P
+WHERE P.professionalName = "Smilow"
+
+SELECT S.patientId, S.amountDue, S.dateDue, S.daysLate,
+P.fname, P.name, P.phone, P.address, P.patientId
+FROM PATIENT P, SERVICE
+WHERE P.patientId = S.patientId
+AND S.amountDue >= 10
+AND S.daysLate > 30
+
+SELECT P.patientId, P.fname, P.lname, P.phone, P.address
+FROM PATIENT P
+ORDER BY P.payedLastYear DESC
+LIMIT 100
