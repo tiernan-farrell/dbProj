@@ -1,23 +1,346 @@
 INSERT into PATIENT
-values('01101234', 'Smith', 'John', '364 Youngswood drive', '614-876-8893', 'n/a', '10/3/2006', '8/18/2015', '1500');
+values('01101234', 'Smith', 'John', '364 Youngswood drive', '614-876-8893', 
+'n/a', '10/3/2006', '8/18/2015', '1500');
 
-INSERT into PAT_PHONE
-values('01101234', '541-617-8988');
+INSERT into PATIENT
+values('1231231', 'Will', 'Dunston', 
+'2334 Grove Road', '704-874-3423', 
+'n/a', '10/3/2006', '10/10/2003', '240');
 
-INSERT into PAT_MEDICAL_HISTORY
-values('01101234', 'cranial surgery');
+INSERT into PATIENT
+values('124111', 'Wanda', 'Porch', 
+'4818 Olen Drive', '860-882-1163', 
+'n/a', '8/2/2020', '12/1/2019', '420');
+
+INSERT into PATIENT
+values('42', 'Ethel', 'Castillo', 
+'4321 Fake Road', '940-473-3456', 
+'n/a', '10/24/1999', '12/1/2019', '0');
+
+INSERT into PATIENT
+values('214214', 'Sam', 'Rosario', 
+'2334 Grove Road', '940-473-3456', 
+'n/a', '1/4/2004', '12/1/2019', '1212');
+
+INSERT into PATIENT
+values('46273', 'Michael', 'Earl', 
+'1819 Rome Road', '240-882-1454', 
+'n/a', '3/2/2007', '12/1/2019', '564');
+
+INSERT into PATIENT
+values('76586', 'Steve', 'Kerr', 
+'1819 Prince Drive', '515-882-1163', 
+'n/a', '3/2/2021', '12/1/2019', '564');
+
+INSERT into PATIENT
+values('141241', 'Clark', 'Henry', 
+'1819 Prince Drive', '526-622-1163', 
+'n/a', '3/2/2021', '1/1/2020', '564');
+
+INSERT into PATIENT
+values('643636', 'Harrison', 'Kenry', 
+'1819 Folk Drive', '423-313-1163', 
+'n/a', 'n/a', '12/1/2019', '564');
 
 INSERT into PAT_ALLERGIES
-values('01101234', 'pollen');
+values('01101234', '541-617-8988');
+
+INSERT into PAT_ALLERGIES
+values('141241', '526-622-1163');
+
+INSERT into PAT_ALLERGIES
+values('01101234', '541-617-8988');
+
+INSERT into PAT_ALLERGIES
+values('124111','860-882-1163');
+
+INSERT into PAT_ALLERGIES
+values('42', '940-473-3456');
+
+INSERT into PAT_ALLERGIES
+values('214214','940-473-3456');
+
+INSERT into PAT_ALLERGIES
+values('46273', '240-882-1454');
+
+INSERT into PAT_ALLERGIES
+values('76586', '515-882-1163');
+
+INSERT into PAT_MEDICAL_HISTORY
+values(01101234, 'cranial surgery');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('01101234', 'root canal');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('141241', 'root canal');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('01101234', 'fillings');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('124111','teeth whitening');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('42', 'veneers');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('214214','crowns');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('46273', 'crowns');
+
+INSERT into PAT_MEDICAL_HISTORY
+values('76586', 'root canal');
+
+
+INSERT into PAT_ALLERGIES
+values(01101234, 'pollen');
+
+INSERT into PAT_ALLERGIES
+values('01101234', 'eggs');
+
+INSERT into PAT_ALLERGIES
+values('141241', 'n/a');
+
+INSERT into PAT_ALLERGIES
+values('01101234', 'n/a');
+
+INSERT into PAT_ALLERGIES
+values('124111', 'n/a');
+
+INSERT into PAT_ALLERGIES
+values('42', 'n/a');
+
+INSERT into PAT_ALLERGIES
+values('214214','sulphites');
+
+INSERT into PAT_ALLERGIES
+values('46273', 'latex');
+
+INSERT into PAT_ALLERGIES
+values('76586', 'acrylates');
 
 INSERT into FACULTY
-values('06687489', 'Troy', 'Paul', '8-5', '123000', 'Doctor', '4/23/1990', 'male');
+values('06687489', 'Troy', 'Paul', '8-5', 123000, 'Doctor', '4/23/1990', 'male');
+
+INSERT into FACULTY
+values('32432423', 'Frances', 'Garza', '11-5', 152352, 'Doctor', '12/3/1965', 'male');
+
+INSERT into FACULTY
+values('1', 'Dennis', 'Allen', '8-5', 43242, 'Receptionist', '6/25/1991', 'male');
+
+INSERT into FACULTY
+values('23', 'Dennis', 'Tovar', '8-5', 75675, 'Hygenist', '5/25/1972', 'male');
+
+INSERT into FACULTY
+values('53', 'Paul', 'Segura', '8-5', 23523, 'Dental Assistant', '1/5/1944', 'male');
+
+INSERT into FACULTY
+values('52', 'Kristie', 'Richman', '8-5', 64373, 'Owner', '5/21/1990', 'female');
+
+INSERT into FACULTY
+values('865', 'Bernetta', 'Moses', '8-5', 14426, 'Dental Assistant', '9/9/1961', 'female');
+
+INSERT into FACULTY
+values('2352', 'Michael', 'Ruiz', '8-5', 52352, 'Supply Seller', '12/11/1978', 'male');
+
+INSERT into FACULTY
+values('242', 'Ollie', 'Jordan', '8-5', 41412, 'Doctor', '2/19/1982', 'female');
 
 INSERT into PAYMENT
-values('91283438', '01101234', 'credit', '595');
+values(10000, 01101234, 'credit', 75);
+
+INSERT into PAYMENT
+values(10001, 1231231, 'debit', 345);
+
+INSERT into PAYMENT
+values(10002, 124111, 'credit', 258);
+
+INSERT into PAYMENT
+values(10003, 42, 'cash', 692);
+
+INSERT into PAYMENT
+values(10004, 214214, 'credit', 420);
+
+INSERT into PAYMENT
+values(10005, 46273, 'credit', 1010);
+
+INSERT into PAYMENT
+values(10006, 76586, 'cash', 375);
+
+INSERT into PAYMENT
+values(10007, 141241, 'cash', 272);
+
+INSERT into PAYMENT
+values(10008, 643636, 'debit', 242);
 
 INSERT into CREDIT_CARD
 values('1874182470349126', '875', '06/2019');
 
+INSERT into CREDIT_CARD
+values('4017245502602026', '362', '01/2025');
+
+INSERT into CREDIT_CARD
+values('5488507586614616', '645', '11/2024');
+
+INSERT into CREDIT_CARD
+values('5137263279835267', '352', '08/2027');
+
+INSERT into CREDIT_CARD
+values('4546293785321484', '787', '08/2025');
+
+INSERT into CREDIT_CARD
+values('4500498103210491', '915', '03/2026');
+
+INSERT into CREDIT_CARD
+values('5493848867148020', '163', '01/2024');
+
+INSERT into CREDIT_CARD
+values('4094489463967863', '838', '07/2026');
+
+INSERT into CREDIT_CARD
+values('4093067539710920', '632', '09/2024');
+
+INSERT into CREDIT_CARD
+values('6494508386724407', '356', '07/2024');
+
+INSERT into CHEQUE
+values(02, 041215032);
+
+INSERT into CHEQUE
+values(03, 044115090);
+
+INSERT into CHEQUE
+values(04, 041215016);
+
+INSERT into CHEQUE
+values(05, 041215032);
+
+INSERT into CHEQUE
+values(06, 044000024);
+
+INSERT into CHEQUE
+values(07, 044000024);
+
+INSERT into CHEQUE
+values(08, 044115090);
+
+INSERT into CHEQUE
+values(09, 044115090);
+
+INSERT into CHEQUE
+values(10, 041215032);
+
+INSERT into CHEQUE
+values(10, 044000024);
+
+INSERT into DEBIT
+values(4506644499004857, 428, 044115090);
+
+INSERT into DEBIT
+values(4119631870763028, 915, 041215016);
+
+INSERT into DEBIT
+values(4094048409958483, 134, 041215032);
+
+INSERT into DEBIT
+values(4536157146277572, 802, 044000024);
+
+INSERT into DEBIT
+values(4551307310684687, 259, 044000024);
+
+INSERT into DEBIT
+values(040407116203134828, 766, 044115090);
+
+INSERT into DEBIT
+values(5492483827363286, 918, 044115090);
+
+INSERT into DEBIT
+values(5301845921255025, 376, 041215032);
+
+INSERT into DEBIT
+values(4538317621634493, 944, 044000024);
+
 INSERT into APPOINTMENT
-values('0612', '04/04/2022', 'Paul Troy', '678', '06687489', '01101234')
+values('0612', '04/04/2022', 'Paul Troy', '678', '06687489', '01101234');
+
+INSERT into APPOINTMENT
+values('0613', '04/04/2022', 'Ollie Jordan', '242', '242', '1231231');
+
+
+INSERT into APPOINTMENT
+values('0614', '04/06/2022', 'Ollie Jordan', '373', '242', '124111');
+
+
+INSERT into APPOINTMENT
+values('0615', '04/08/2022', 'Paul Troy', '275', '06687489', '42');
+
+INSERT into INSURANCE
+values('1245', '01', '01101234', 'John Smith', '614-876-8893', 'Delta', '241');
+
+INSERT into INSURANCE
+values('4141', '02', '1231231', 'Will Dunston', '704-874-3423', 'Delta', '241');
+
+INSERT into INSURANCE
+values('532', '03', '124111', 'Wanda Porch', '704-874-3423', 'UMR', '361');
+
+INSERT into MEDICATION
+values('1000', '01101234', 'Capsule', 'atorvastatin');
+
+INSERT into MEDICATION
+values('1001', '1231231', 'Powder', 'levothyroxine');
+
+INSERT into MEDICATION
+values('1002', '124111', 'Tablet', 'lisinopril');
+
+INSERT into APPOINTMENT_PAYMENT
+values('10000', '0612', '678', '04/04/2022');
+
+INSERT into APPOINTMENT_PAYMENT
+values('10001', '0613', '242', '04/04/2022');
+
+INSERT into APPOINTMENT_PAYMENT
+values('10002', '0614', '373', '04/06/2022');
+
+INSERT into APPOINTMENT_PAYMENT
+values('10003', '0615', '275', '04/08/2022');
+
+INSERT into SERVICE
+values('9000', '1231231', '678', '04/04/2022', '1')
+
+INSERT into SERVICE
+values('9001', '124111', '242', '04/04/2022', '0');
+
+INSERT into SERVICE
+values('9002', '42', '373', '04/06/2022', '32');
+
+INSERT into SERVICE
+values('9003', '214214', '275', '04/08/2022', '30');
+
+INSERT into APPOINTMENT_SERVICE
+values('9000', '0612');
+
+INSERT into APPOINTMENT_SERVICE
+values('9001', '0613');
+
+INSERT into APPOINTMENT_SERVICE
+values('9002', '0614');
+
+INSERT into APPOINTMENT_SERVICE
+values('9003', '0615');
+
+INSERT into SERVICE_PROCEDURES
+values('9000', '0612');
+
+INSERT into SERVICE_PROCEDURES
+values('9001', '0613');
+
+INSERT into SERVICE_PROCEDURES
+values('9002', '0614');
+
+INSERT into SERVICE_PROCEDURES
+values('9003', '0615');
+
+INSERT into LICENSURE
+values();
