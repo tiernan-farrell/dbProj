@@ -1,79 +1,94 @@
 SELECT * FROM demo;
 
 CREATE TABLE PATIENT (
-    patientId int,
-    lname varchar,
-    fname varchar,
-  	address varchar,
-  	phone varchar,
+    patientId int NOT NULL,
+    lname varchar not NULL,
+    fname varchar not NULL,
+  	address varchar not NULL,
+  	phone varchar not NULL,
   	medicalHistory varchar,
   	HIPAALastSigned varchar,
   	xRayDate varchar,
-  	payedLastYear int
+  	payedLastYear int,
+  	primary key (patientId)
 );
 CREATE TABLE PAT_PHONE (
      pId int,
-    phone varchar
+    phone varchar,
+  	FOREIGN key (pId) REFERENCES PATIENT(patientId)
 );
 
 CREATE TABLE PAT_MEDICAL_HISTORY (
      pId int,
-    procedure varchar
+    procedure varchar,
+  	FOREIGN key (pId) REFERENCES PATIENT(patientId)
 );
 
 CREATE TABLE PAT_ALLERGIES (
      pId int,
-    allergen varchar
+    allergen varchar,
+  FOREIGN key (pId) REFERENCES PATIENT(patientId)
 );
 
 
 CREATE TABLE OFFICE (
-     officeId int,
-    address varchar
+     officeId int not NULL,
+    address varchar NOT NULL,
+  primary key (officeId)
 );
 
 CREATE TABLE FACULTY (
-     facultyId int,
-    lname varchar,
-    fname varchar,
-  	workHours varchar,
-  	salary int,
-  	role varchar,
-  	bday varchar,
-  	sex varchar
+     facultyId int not NULL,
+    lname varchar not NULL,
+    fname varchar not NULL,
+  	workHours varchar not NULL,
+  	salary int not NULL,
+  	role varchar not NULL,
+  	bday varchar not NULL,
+  	sex varchar not NULL,
+  	PRIMARY key (facultyId)
+  
 );
 
 CREATE TABLE PAYMENT (
-     paymentId int,
+     paymentId int not NULL,
     patientId int,
-    pType varchar,
-  	amount int
+    pType varchar not NULL,
+  	amount int not NULL,
+  primary key (paymentId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
+  
 );
 
 CREATE TABLE CREDIT_CARD (
-     cardNum varchar,
-    CVV varchar,
-    expiration varchar
+     cardNum varchar not NULL,
+    CVV varchar not NULL,
+    expiration varchar not NULL,
+  primary key (cardNum)
 );
 
 CREATE TABLE CHEQUE (
     accountNo varchar,
-    routingNo varchar
+    routingNo varchar,
+  primary key (accountNo)
 );
 
 CREATE TABLE DEBIT (
      cardNum varchar,
     accountNo varchar,
-    routingNo varchar
+    routingNo varchar,
+  primary key (cardNum)
 );
 
 CREATE TABLE APPOINTMENT (
-     appointmentId int,
-    dateOf varchar,
+     appointmentId int not NULL,
+    dateOf varchar not NULL,
     medicalProfessional varchar,
-  	totalCost int,
+  	totalCost int not NULL,
   	faculty varchar,
-  	patientId INT
+  	patientId INT,
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId),
+  PRIMARY key (appointmentId)
 );
 
 CREATE TABLE INSURANCE (
@@ -83,62 +98,77 @@ CREATE TABLE INSURANCE (
   	holderName varchar,
   	phoneNumber varchar,
   	company varchar,
-  	policy varchar
+  	policy varchar,
+  primary key (memberId),
+  FOREIGN key (insuredId) REFERENCES PATIENT(patientId)
 );
 
 CREATE TABLE MEDICATION (
      medicationId int,
     patientId int,
     dose varchar,
-  	name varchar
+  	name varchar,
+  PRIMARY key (medicationId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
 );
 
 CREATE TABLE APPOINTMENT_PAYMENT (
      paymentId int,
     appointmentId int,
-    amount int,
-  	dateOf varchar
+    amount int not NULL,
+  	dateOf varchar not NULL,
+	primary key (paymentId),
+	FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
 );
 CREATE TABLE SERVICE (
-     serviceId int,
+     serviceId int not NULL,
   	patientId int,
-    amountDue int,
-    dateDue varchar,
-  	daysLate int
+    amountDue int not NULL,
+    dateDue varchar not NULL,
+  	daysLate int not NULL,
+  PRIMARY KEY (serviceId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
 );
 
 CREATE TABLE APPOINTMENT_SERVICE (
-     serviceId int,
-    appointmentId int
+     serviceId int not NULL,
+    appointmentId int,
+  PRIMARY key (serviceId),
+  FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
 );
 
 CREATE TABLE SERVICE_PROCEDURES (
      serviceId int,
-    appointmentId int
+    appointmentId int,
+   PRIMARY key (serviceId),
+  FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
 );
 
 CREATE TABLE LICENSURE (
      facultyId int,
-    expiryDate varchar,
-    type varchar
+    expiryDate varchar not NULL,
+    type varchar not NULL,
+  FOREIGN key (facultyId) REFERENCES FACULTY(facultyId)
 );
 
 CREATE TABLE SUPPLY_SELLER (
-     number int,
-    location varchar,
-    name varchar
+     number int not NULL,
+    location varchar not NULL,
+    name varchar not NULL,
+  PRIMARY KEY (number)
 );
 
 CREATE TABLE SUPPLY_PURCHASE (
-     ownerName varchar,
-    supplierNumber int,
-    purchasePrice int,
-  	dateOf varchar,
-  	quantity int
+     ownerName varchar not NULL,
+    supplierNumber int not NULL,
+    purchasePrice int not NULL,
+  	dateOf varchar not NULL,
+  	quantity int not NULL,
+  PRIMARY key (supplierNumber)
 );
 CREATE TABLE PROCEDURE (
-     type varchar,
-    dateOf varchar,
-    professionalName varchar,
-  	cost int
+     type varchar not NULL,
+    dateOf varchar not NULL,
+    professionalName varchar not NULL,
+  	cost int not NULL
 );
