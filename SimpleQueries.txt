@@ -16,7 +16,7 @@ FROM Procedure AS Pr, Invoice as I, INVOICE_PROC as IP, SMIL_PROCS as SP
 WHERE IP.invoiceId = I.invoiceID AND SP.invoiceId = I.invoiceId AND IP.procedureId = Pr.procedureId;
 
 CREATE VIEW LATE_INVOICES AS
-SELECT I.invoiceId, I.amount, I.dueDate,
+SELECT I.invoiceId, I.amount, I.dueDate
 FROM Invoice AS I LEFT OUTER JOIN PAY_INVOICE AS IPI ON IPI.invoiceId = I.invoiceId
 WHERE DATE('now') > DATE(dueDate, '+30 day')
 GROUP BY IPI.invoiceId
