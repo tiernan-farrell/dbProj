@@ -1,174 +1,316 @@
-SELECT * FROM demo;
+CREATE TABLE ALLERGIES(
+  allergyId INTEGER PRIMARY KEY AUTOINCREMENT,
+  allergyName varchar(20) NOT NULL
+  );
 
-CREATE TABLE PATIENT (
-    patientId int NOT NULL,
-    lname varchar not NULL,
-    fname varchar not NULL,
-  	address varchar not NULL,
-  	phone varchar not NULL,
-  	medicalHistory varchar,
-  	HIPAALastSigned varchar,
-  	xRayDate varchar,
-  	payedLastYear int,
-  	primary key (patientId)
+CREATE TABLE MEDICATION(
+  medicationId INTEGER PRIMARY KEY AUTOINCREMENT,
+  medicationName varchar(20) NOT NULL
+  );
+
+CREATE TABLE XRAY(
+  xrayId INTEGER PRIMARY KEY AUTOINCREMENT,
+  xrayName varchar(20) NOT NULL
+  );
+
+CREATE TABLE PAYMENT(
+  paymentId INTEGER PRIMARY KEY AUTOINCREMENT,
+  type varchar(20) NOT NULL,
+  patientId integer NOT NULL,
+  foreign key (patientId) REFERENCES PATIENT(patientId)
+  );
+
+CREATE TABLE PATIENT(
+  patientId INTEGER PRIMARY KEY AUTOINCREMENT,
+  hippaDateSigned date,
+  lastUpdated datetime,
+  insuranceCompId integer,
+  foreign key (insuranceCompId) REFERENCES INSURANCE(insuranceCompId)
+  );
+
+CREATE TABLE APPOINTMENT(
+  apptId INTEGER PRIMARY KEY AUTOINCREMENT,
+  apptTime time NOT NULL,
+  apptDescript text NOT NULL,
+  apptDate date NOT NULL,
+  patientId integer NOT NULL,
+  invoiceId integer NOT NULL,
+  foreign key (patientId) REFERENCES PATIENT(patientId)
+  foreign key (invoiceId) REFERENCES Invoice(invoiceId)
+  );
+
+CREATE TABLE CHEQUE(
+  paymentId INTEGER,
+  routingNum integer NOT NULL,
+  accountNum integer NOT NULL,
+  foreign key (paymentId) REFERENCES PAYMENT(paymentId)
+  );
+
+CREATE TABLE CREDIT_CARD(
+  paymentId INTEGER,
+  cardNum integer NOT NULL,
+  cvv integer NOT NULL,
+  cardExpiryDate date NOT NULL,
+  foreign key (paymentId) REFERENCES PAYMENT(paymentId)
+  );
+
+CREATE TABLE DEBIT(
+  paymentId INTEGER,
+  cardNum integer NOT NULL,
+  routingNum integer NOT NULL,
+  accountNum date NOT NULL,
+  foreign key (paymentId) REFERENCES PAYMENT(paymentId)
+  );
+
+
+CREATE TABLE PROCEDURE(
+  procedureId INTEGER primary key AUTOINCREMENT,
+  procedureName varchar(20) NOT NULL,
+  procedureCost decimal(10,2) NOT NULL
+  );
+
+CREATE TABLE LICENSURE(
+  licenseId INTEGER primary key AUTOINCREMENT,
+  licExpiryDate date NOT NULL,
+  licIssueDate date NOT NULL,
+  licenseName varchar(25) NOT NULL,
+  employeeId integer NOT NULL,
+  FOREIGN key (employeeId) REFERENCES EMPLOYEE(employeeId)
+  );
+
+CREATE TABLE MEDICAL(
+  specialization varchar(20) NOT NULL,
+  employeeId integer NOT NULL,
+  FOREIGN key (employeeId) REFERENCES EMPLOYEE(employeeId)
+  );
+
+CREATE TABLE ORDR(
+  orderId integer PRIMARY KEY AUTOINCREMENT,
+  description text NOT NULL,
+  price decimal(10,2) NOT NULL,
+  orderDate date NOT NULL
 );
-CREATE TABLE PAT_PHONE (
-     pId int,
-    phone varchar,
-  	FOREIGN key (pId) REFERENCES PATIENT(patientId)
+
+CREATE TABLE EMPLOYEE(
+  employeeId integer PRIMARY KEY AUTOINCREMENT,
+  salary integer NOT NULL,
+  role varchar(20) NOT NULL
 );
 
-CREATE TABLE PAT_MEDICAL_HISTORY (
-     pId int,
-    procedure varchar,
-  	FOREIGN key (pId) REFERENCES PATIENT(patientId)
+CREATE TABLE OFFICE_MANAGER(
+  employeeId integer NOT NULL,
+  startDate date NOT NULL,
+  FOREIGN KEY (employeeid) REFERENCES EMPLOYEE(employeeid)
 );
 
-CREATE TABLE PAT_ALLERGIES (
-     pId int,
-    allergen varchar,
-  FOREIGN key (pId) REFERENCES PATIENT(patientId)
+CREATE TABLE RECEPTIONIST(
+  employeeId integer NOT NULL,
+  rating integer NOT NULL,
+  FOREIGN KEY (employeeid) REFERENCES EMPLOYEE(employeeid)
+);
+
+CREATE TABLE SUPPLIES(
+  productId integer PRIMARY KEY AUTOINCREMENT,
+  productName varchar(20) NOT NULL
+);
+
+CREATE TABLE SUPPLY_SELLER(
+  supplierId integer PRIMARY KEY AUTOINCREMENT,
+  location varchar(20) NOT NULL
+);
+
+CREATE TABLE INSURANCE(
+  insuranceCompId integer PRIMARY KEY AUTOINCREMENT,
+  companyName varchar(20) NOT NULL,
+  companyPhone integer NOT NULL,
+  addressId integer NOT NULL,
+  FOREIGN KEY (addressId) REFERENCES ADDRESS(adressId)
+);
+
+CREATE TABLE PERSON(
+  personId integer PRIMARY KEY AUTOINCREMENT,
+  email varchar(25) NOT NULL,
+  fname varchar(20) NOT NULL,
+  lname varchar(20) NOT NULL,
+  ssn integer NOT NULL,
+  pno integer NOT NULL,
+  bday date NOT NULL,
+  sex char NOT NULL,
+  Type tinyint(1) NOT NULL
+);
+
+CREATE TABLE ADDRESS(
+  addressId integer PRIMARY KEY AUTOINCREMENT,
+  street varchar(35) NOT NULL,
+  city varchar(20) NOT NULL,
+  state varchar(2) NOT NULL,
+  zip integer NOT NULL,
+  country varchar(20) NOT NULL
 );
 
 
-CREATE TABLE OFFICE (
-     officeId int not NULL,
-    address varchar NOT NULL,
-  primary key (officeId)
+CREATE TABLE PERSON_ADDRESS(
+  addressId integer,
+  personId integer,
+  primary key (addressId, personId),
+  FOREIGN key (addressId) REFERENCES ADDRESS(addressId),
+  FOREIGN key (personId) REFERENCES PERSON(personId)
 );
 
-CREATE TABLE FACULTY (
-     facultyId int not NULL,
-    lname varchar not NULL,
-    fname varchar not NULL,
-  	workHours varchar not NULL,
-  	salary int not NULL,
-  	role varchar not NULL,
-  	bday varchar not NULL,
-  	sex varchar not NULL,
-  	PRIMARY key (facultyId)
-  
-);
-
-CREATE TABLE PAYMENT (
-     paymentId int not NULL,
-    patientId int,
-    pType varchar not NULL,
-  	amount int not NULL,
-  primary key (paymentId),
-  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
-  
-);
-
-CREATE TABLE CREDIT_CARD (
-     cardNum varchar not NULL,
-    CVV varchar not NULL,
-    expiration varchar not NULL,
-  primary key (cardNum)
-);
-
-CREATE TABLE CHEQUE (
-    accountNo varchar,
-    routingNo varchar,
-  primary key (accountNo)
-);
-
-CREATE TABLE DEBIT (
-     cardNum varchar,
-    accountNo varchar,
-    routingNo varchar,
-  primary key (cardNum)
-);
-
-CREATE TABLE APPOINTMENT (
-     appointmentId int not NULL,
-    dateOf varchar not NULL,
-    medicalProfessional varchar,
-  	totalCost int not NULL,
-  	faculty varchar,
-  	patientId INT,
+CREATE TABLE PAT_ALLERGIES(
+  patientId integer,
+  allergyId integer,
+  dateLastOccured date,
+  allergyDescription text,
+  primary key (patientId, allergyId),
   FOREIGN key (patientId) REFERENCES PATIENT(patientId),
-  PRIMARY key (appointmentId)
+  FOREIGN key (allergyId) REFERENCES ALLERGIES(allergyId)
 );
 
-CREATE TABLE INSURANCE (
-     memberId int,
-    groupNum int,
-    insuredId int,
-  	holderName varchar,
-  	phoneNumber varchar,
-  	company varchar,
-  	policy varchar,
-  primary key (memberId),
-  FOREIGN key (insuredId) REFERENCES PATIENT(patientId)
+CREATE TABLE PAT_MEDS(
+  patientId integer,
+  medicationId integer,
+  dose varchar(20),
+  medDescription text,
+  medDate date,
+  primary key (patientId, medicationId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId),
+  FOREIGN key (medicationId) REFERENCES MEDICATION(medicationId)
 );
 
-CREATE TABLE MEDICATION (
-     medicationId int,
-    patientId int,
-    dose varchar,
-  	name varchar,
-  PRIMARY key (medicationId),
-  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
+CREATE TABLE PAT_XRAY(
+  patientId integer,
+  xrayId integer,
+  xrayDate date,
+  xrayDescription text,
+  primary key (patientId, xrayId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId),
+  FOREIGN key (xrayId) REFERENCES XRAY(xrayId)
+  
 );
 
-CREATE TABLE APPOINTMENT_PAYMENT (
-     paymentId int,
-    appointmentId int,
-    amount int not NULL,
-  	dateOf varchar not NULL,
-	primary key (paymentId),
-	FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
-);
-CREATE TABLE SERVICE (
-     serviceId int not NULL,
-  	patientId int,
-    amountDue int not NULL,
-    dateDue varchar not NULL,
-  	daysLate int not NULL,
-  PRIMARY KEY (serviceId),
-  FOREIGN key (patientId) REFERENCES PATIENT(patientId)
+
+CREATE TABLE INVOICE(
+  invoiceId INTEGER primary key AUTOINCREMENT,
+  creationDate date NOT NULL,
+  amount decimal(10,2) NOT NULL, 
+  dueDate date as (date(creationDate, '+30 days')),
+  apptId integer NOT NULL,
+  foreign key (apptId) REFERENCES APPOINTMENT(apptId)
+  );
+
+
+CREATE TABLE PAY_INVOICE(
+  paymentId integer,
+  invoiceId integer,
+  paymentDate date,
+  amount decimal(10,2),
+  primary key (paymentId, invoiceId),
+  FOREIGN key (paymentId) REFERENCES PAYMENT(paymentId),
+  FOREIGN key (invoiceId) REFERENCES INVOICE(invoiceId)
 );
 
-CREATE TABLE APPOINTMENT_SERVICE (
-     serviceId int not NULL,
-    appointmentId int,
-  PRIMARY key (serviceId),
-  FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
+CREATE TABLE PAY_TYPE(
+  paymentId integer,
+  type varchar(20),
+  primary key (paymentId),
+  FOREIGN key (paymentId) REFERENCES PAYMENT(paymentId)
 );
 
-CREATE TABLE SERVICE_PROCEDURES (
-     serviceId int,
-    appointmentId int,
-   PRIMARY key (serviceId),
-  FOREIGN key (appointmentId) REFERENCES APPOINTMENT(appointmentId)
+CREATE TABLE INVOICE_PROC(
+  procedureId integer,
+  invoiceId integer,
+  procedureDate date,
+  description text,
+  qty integer,
+  cost decimal(10, 2),
+  primary key (procedureId, invoiceId),
+  FOREIGN key (procedureId) REFERENCES PROCEDURE(procedureId),
+  FOREIGN key (invoiceId) REFERENCES INVOICE(invoiceId)
 );
 
-CREATE TABLE LICENSURE (
-     facultyId int,
-    expiryDate varchar not NULL,
-    type varchar not NULL,
-  FOREIGN key (facultyId) REFERENCES FACULTY(facultyId)
+
+
+
+CREATE TABLE INSURANCE_COVERS(
+  insuranceCompId integer,
+  procedureId integer,
+  costCovered decimal(10,2),
+  primary key (insuranceCompId, procedureId),
+  FOREIGN key (insuranceCompId) REFERENCES INSURANCE(insuranceCompId),
+  FOREIGN key (procedureId) REFERENCES PROCEDURE(procedureId)
 );
 
-CREATE TABLE SUPPLY_SELLER (
-     number int not NULL,
-    location varchar not NULL,
-    name varchar not NULL,
-  PRIMARY KEY (number)
+CREATE TABLE PROCEDURE_SUPPLIES(
+  productId integer,
+  procedureId integer,
+  qty integer,
+  primary key (productId, procedureId),
+  FOREIGN key (productId) REFERENCES SUPPLIES(productId),
+  FOREIGN key (procedureId) REFERENCES PROCEDURE(procedureId)
 );
 
-CREATE TABLE SUPPLY_PURCHASE (
-     ownerName varchar not NULL,
-    supplierNumber int not NULL,
-    purchasePrice int not NULL,
-  	dateOf varchar not NULL,
-  	quantity int not NULL,
-  PRIMARY key (supplierNumber)
+CREATE TABLE ATTENDS_APPT(
+  employeeId integer,
+  apptId integer,
+  primary key (employeeId, apptId),
+  FOREIGN key (employeeId) REFERENCES MEDICAL(employeeId),
+  FOREIGN key (apptId) REFERENCES APPOINTMENT(apptId)
 );
-CREATE TABLE PROCEDURE (
-     type varchar not NULL,
-    dateOf varchar not NULL,
-    professionalName varchar not NULL,
-  	cost int not NULL
+
+CREATE TABLE PREFORMS_PROC(
+  employeeId integer,
+  procedureId integer,
+  primary key (employeeId, procedureId),
+  FOREIGN key (employeeId) REFERENCES MEDICAL(employeeId),
+  FOREIGN key (procedureId) REFERENCES PROCEDURE(procedureId)
 );
+
+CREATE TABLE SUPPLY_ORDER(
+  orderId integer,
+  productId integer,
+  qty integer,
+  primary key (orderId, productId),
+  FOREIGN key (orderId) REFERENCES ORDR(orderId),
+  FOREIGN key (productId) REFERENCES SUPPLIES(productId)
+);
+
+CREATE TABLE OFFICE_MAN_ORDER(
+  employeeId integer,
+  orderId integer,
+  primary key (employeeId, orderId),
+  FOREIGN key (employeeId) REFERENCES MEDICAL(employeeId),
+  FOREIGN key (orderId) REFERENCES ORDR(orderId)
+);
+
+CREATE TABLE SUPPLY_SELLER_PROVIDES(
+  supplierId integer,
+  productId integer,
+  price decimal(10, 2),
+  primary key (supplierId, productId),
+  FOREIGN key (supplierId) REFERENCES SUPPLY_SELLER(supplierId),
+  FOREIGN key (productId) REFERENCES SUPPLIES(productId)
+);
+
+CREATE TABLE EMERGENCY_CONTACT(
+  personId integer,
+  emergencyContactId integer,
+  primary key (personId, emergencyContactId),
+  FOREIGN key (personId) REFERENCES PERSON(personId),
+  FOREIGN key (emergencyContactId) REFERENCES PERSON(personId)
+);
+
+CREATE TABLE PAT_INSUR(
+  patientId integer,
+  insuranceCompId integer,
+  memberId varchar(20) NOT NULL,
+  planNo varchar(20) NOT NULL,
+  planName varchar(30) NOT NULL,
+  groupNo varchar(20) NOT NULL,
+  startDate date NOT NULL,
+  endDate date,
+  primary key (patientId, insuranceCompId),
+  FOREIGN key (patientId) REFERENCES PATIENT(patientId),
+  FOREIGN key (insuranceCompId) REFERENCES INSURANCE(insuranceCompId)
+);
+

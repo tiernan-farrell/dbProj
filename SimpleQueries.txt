@@ -1,28 +1,73 @@
-SELECT P.fname, P.lname, M.name, M.dose
-FROM Patient P, Medication MEDICATION
-WHERE P.patientId = M.patientId
-ORDER BY P.lname, M.name;
+SELECT Pa.patientId, P.fname, P.lname, P.pno, P.bday, M.medicationName, PM.dose, PM.medDescription, PM.medDate
+FROM Patient AS Pa, Person as P, Medication as M, PAT_MEDS as PM
+WHERE Pa.patientId = P.personID AND M.medicationId = PM.medicationId AND PM.patientId = Pa.patientId
+ORDER BY P.lname, M.medicationName;
 
+SELECT Pa.patientId, hippaDateSigned, lastUpdated, fname, lname, pno, bday, ssn, sex, companyName, companyPhone, memberId, planName, planNo, memberId, groupNo, PI.startDate, PI.endDate
+FROM Patient as Pa, Person as P, Insurance as I, PAT_INSUR as PI
+WHERE Pa.patientId = P.personId AND  Pa.patientId = PI.patientId and PI.insuranceCompId = I.insuranceCompId AND I.companyName = "Delta Dental";
 
-SELECT P.fname, P.lname, P.patientId
-P.address, P.phone, P.medicalHistory, P.HIPAALastSigned,
-P.xRayDate, P.payedLastYear
-FROM Patient P, Medication MEDICATION
-WHERE P.patientId = M.patientId
-AND M.name = "Delta Dental"
+CREATE VIEW SMIL_PROCS AS
+SELECT *
+FROM Person AS Pe, Appointment AS A, ATTENDS_APPT as AA
+WHERE Pe.fname = "Hope" AND Pe.lname = "Smilow" AND AA.apptId = A.apptId AND Pe.personId = AA.employeeId;
+SELECT procedureName, apptDate, apptTime
+FROM Procedure AS Pr, Invoice as I, INVOICE_PROC as IP, SMIL_PROCS as SP
+WHERE IP.invoiceId = I.invoiceID AND SP.invoiceId = I.invoiceId AND IP.procedureId = Pr.procedureId;
 
-SELECT P.type, P.dateOf
-FROM PROCEDURE P
-WHERE P.professionalName = "Smilow"
+CREATE VIEW LATE_INVOICES AS
+SELECT I.invoiceId, I.amount, I.dueDate,
+FROM Invoice AS I LEFT OUTER JOIN PAY_INVOICE AS IPI ON IPI.invoiceId = I.invoiceId
+WHERE DATE('now') > DATE(dueDate, '+30 day')
+GROUP BY IPI.invoiceId
+HAVING I.amount - SUM(IPI.amount) > 10;
+SELECT LI.amount, dueDate, LI.invoiceId, fname, lname, ssn, email, pno
+FROM LATE_INVOICES AS LI, Person as P, Appointment as A
+WHERE A.patientId = P.personId AND A.invoiceId = LI.invoiceId
+ORDER BY LI.amount;
 
-SELECT S.patientId, S.amountDue, S.dateDue, S.daysLate,
-P.fname, P.name, P.phone, P.address, P.patientId
-FROM PATIENT P, SERVICE
-WHERE P.patientId = S.patientId
-AND S.amountDue >= 10
-AND S.daysLate > 30
+CREATE VIEW Patient_Total AS
+SELECT PAY.patientId, SUM(PI.amount) AS Patient_Amount
+FROM PAY_INVOICE as PI, PAYMENT AS PAY
+WHERE PAY.patientId IS NOT NULL AND DATE(paymentdate, '+1 year') >= DATE('now') AND PI.paymentId = PAY.paymentId
+GROUP BY PAY.patientId;
+SELECT PT.patientId, fname, lname, bday, email, pno, Patient_Amount
+FROM Person as P, Patient_Total as PT, Patient as PAT
+WHERE P.personId = PAT.patientId AND PAT.patientId = PT.patientId
+ORDER BY Patient_Amount DESC
+Limit 10;
 
-SELECT P.patientId, P.fname, P.lname, P.phone, P.address
-FROM PATIENT P
-ORDER BY P.payedLastYear DESC
-LIMIT 100
+CREATE VIEW COUNT_PROCS AS
+SELECT COUNT(procedureId) AS PROCS_NUM, M.employeeId
+FROM Medical as M 
+JOIN PREFORMS_PROC AS MA ON M.employeeId = MA.employeeId
+GROUP BY MA.employeeId;
+SELECT Employee.employeeId, fname, lname, role, salary, PROCS_NUM
+FROM (PERSON JOIN COUNT_PROCS AS PCR ON personId = employeeId) AS PC
+JOIN EMPLOYEE ON PC.personId = Employee.employeeId
+WHERE PROCS_NUM <= 5;
+
+SELECT procedureName, procedureCost, COUNT(PR.procedureId) AS PROC_COUNT
+FROM PREFORMS_PROC as IP JOIN Procedure as Pr ON IP.procedureId = Pr.procedureId
+GROUP BY Pr.procedureId
+ORDER BY PROC_COUNT DESC;
+
+CREATE VIEW PAY_TYPE_COUNT AS
+SELECT type, COUNT(paymentId) as PAY_USED_COUNT
+FROM PAYMENT
+GROUP BY type;
+CREATE VIEW PAY_TYPE_CHARGED AS
+SELECT type, SUM(amount) as PAY_TOTAL_PAID
+FROM Payment as PAY, PAY_INVOICE AS PI
+GROUP BY type;
+SELECT PYC.type,  PAY_USED_COUNT, PAY_TOTAL_PAID
+FROM   PAY_TYPE_CHARGED AS PTC, PAY_TYPE_COUNT AS PYC
+WHERE PTC.type = PYC.type
+ORDER BY PAY_TOTAL_PAID DESC;
+
+CREATE VIEW COUNT_INSUR_PLANS AS
+SELECT COUNT(patientId) AS NUM_OF_PATS, companyName, planName, planNo
+FROM PAT_INSUR AS PI JOIN INSURANCE ON PI.insuranceCompId = Insurance.insuranceCompId
+GROUP BY planName;
+SELECT MAX(NUM_OF_PATS) AS PATIENTS_NUM, companyName, planName, planNo
+FROM COUNT_INSUR_PLANS;

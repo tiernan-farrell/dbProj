@@ -1,0 +1,11 @@
+
+INSERT INTO PERSON VALUES(121, "testthis@gmail.com", "Test", "Insert", 987654000, 6100001311, 1971-02-26, 'F', 2);
+INSERT INTO PERSON VALUES(122, "moretest@gmail.com", "Demo", "Purposes", 987650000, 6040001311, 1948-09-09, 'F', 2);
+INSERT INTO PAT_XRAY VALUES(1, 3, 2020-10-13, "Braces image");
+INSERT INTO PAT_XRAY VALUES(1, 4, 2022-11-03, "XRay for wisdom teeth");
+INSERT INTO PAT_MEDS VALUES(14, 1009, "2mg once a day", "Take one tablet with food once daily", 2020-03-29); 
+INSERT INTO PAT_MEDS VALUES(14, 1007, "1mg once a day", "Take one tablet with food once daily", 2020-03-29); 
+
+DELETE FROM PERSON WHERE personId > 120;
+DELETE FROM PAT_XRAY WHERE patientId =1;
+DELETE FROM PAT_MEDS WHERE patientId = 14;
