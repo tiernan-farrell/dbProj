@@ -18,7 +18,7 @@ WHERE IP.invoiceId = I.invoiceID AND SP.invoiceId = I.invoiceId AND IP.procedure
 CREATE VIEW LATE_INVOICES AS
 SELECT I.invoiceId, I.amount, I.dueDate
 FROM Invoice AS I LEFT OUTER JOIN PAY_INVOICE AS IPI ON IPI.invoiceId = I.invoiceId
-WHERE DATE('now') > DATE(dueDate, '+30 day')
+WHERE DATE('now') > DATE(dueDate)
 GROUP BY IPI.invoiceId
 HAVING I.amount - SUM(IPI.amount) > 10;
 SELECT LI.amount, dueDate, LI.invoiceId, fname, lname, ssn, email, pno
