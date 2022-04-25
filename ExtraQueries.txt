@@ -2,14 +2,11 @@ SELECT P.fname, P.lname, P.pno, P.email, O.orderDate, O.price, O.orderId
 FROM PERSON AS P, ORDR AS O, OFFICE_MANAGER AS OM, OFFICE_MAN_ORDER AS OMO 
 WHERE P.personId=OM.employeeId AND OMO.orderId=O.orderId AND OMO.employeeId=OM.employeeId;
 
-
 SELECT P.fname, P.lname, P.pno, P.email 
 FROM PERSON AS P, RECEPTIONIST AS R
 WHERE P.personId=R.employeeId AND R.rating = (
 		SELECT MAX(rating)
         FROM RECEPTIONIST);	
-
-
 
 SELECT * FROM 
     (SELECT S.productId, S.productName, SS.price

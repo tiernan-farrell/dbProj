@@ -38,12 +38,11 @@ How to use the provided .txt files:
     This file contains a collection of queries that can be ran 
     in order to recieve some results from the database. These 
     queries should be ran individually by copying and pasting to 
-    the sqliteonline. They will all produce some results after 
-    being ran. 
+    the sqliteonline. The queries are separated by one blank line
+    each. They will all produce some results after being ran. 
 
 5. ExtraQueries.txt:
     Much like the SimpleQueries.txt, this file contains separate
     select queries that will all return something upon being 
     ran individually. The same steps can be taken as in SimpleQueries.txt
     to see the results of the queries. 
-    
